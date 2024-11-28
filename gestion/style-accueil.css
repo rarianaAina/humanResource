@@ -1,0 +1,146 @@
+/* Style général du body */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #f5f1f1, #dbe7e6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Conteneur du logo */
+.logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px; /* Espacement supérieur */
+    margin-bottom: 30px; /* Marge sous le logo */
+    
+}
+
+/* Style du logo */
+.logo {
+    max-width: 200px;  /* Ajustez la taille du logo comme souhaité */
+    height: auto;
+    border-radius: 30%;
+}
+
+/* Conteneur central avec deux sections */
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Partie gauche */
+.left-section {
+    width: 45%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alignement du texte à gauche */
+    background: linear-gradient(135deg, #d6e1e0, #e2e7ec);
+}
+
+.left-section h1 {
+    color: #ffffff;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.left-section p {
+    color: #fdfdfd;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Aligner les boutons à gauche */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligner les boutons à gauche */
+}
+
+/* Boutons avec icônes */
+.button-with-icon {
+    display: flex;
+    align-items: center; /* Aligner l'icône et le texte du bouton */
+    margin-bottom: 15px; /* Espacement entre les boutons */
+}
+
+button {
+    background-color: #66a698;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    margin: 0 10px; /* Ajuster les marges pour ne pas trop espacer */
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #637561;
+    transform: scale(1.05);
+}
+
+button i {
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+}
+
+/* Partie droite avec fond stylé */
+.right-section {
+    width: 45%;
+    padding: 30px;
+    background-color: #c6d3d8;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.right-section .info-box {
+    display: none;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+}
+
+.info-box p {
+    color: #333;
+    font-size: 18px;
+}
+.logout-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.logout-button {
+    background-color: #f44336; /* Rouge */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Rouge plus foncé */
+}

@@ -1,0 +1,167 @@
+/* Style général du body */
+body {
+    /* font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0; */
+    background: linear-gradient(45deg, #c1dae2, #dbe7e6);
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column; */
+}
+
+
+/* Couleur pour la section Informations Employé */
+/* Section Informations Employé */
+.section-info-employe {
+    background-color: #6e8eaa; /* Bleu clair */
+    color: #fff; /* Couleur du texte blanche pour contraster avec le fond bleu */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile autour de la section */
+    transition: all 0.3s ease-in-out; /* Effet de transition pour l'interaction */
+  }
+  
+  .section-info-employe:hover {
+    transform: translateY(-5px); /* Effet de décalage lors du survol */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au survol */
+  }
+  
+  .section-info-employe .border {
+    border: 2px solid #4a5b6b; /* Bordure avec une nuance plus sombre du bleu */
+  }
+  
+  .section-info-employe .p-3 {
+    padding: 1.5rem; /* Padding plus spacieux pour un meilleur espacement */
+  }
+  
+  .section-info-employe h4 {
+    font-size: 1.25rem; /* Taille de police pour le titre */
+    font-weight: 600;
+  }
+  
+  .section-info-employe p {
+    font-size: 1rem; /* Taille de texte agréable à lire */
+    line-height: 1.5; /* Espacement entre les lignes */
+  }
+  
+  /* Section Informations Salaire */
+  .section-info-salaire {
+    background-color: #5a6696; /* Bleu plus sombre */
+    color: #fff; /* Couleur du texte blanche */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile autour de la section */
+    transition: all 0.3s ease-in-out; /* Effet de transition pour l'interaction */
+  }
+  
+  .section-info-salaire:hover {
+    transform: translateY(-5px); /* Effet de décalage lors du survol */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au survol */
+  }
+  
+  .section-info-salaire .border {
+    border: 2px solid #4a5b6b; /* Bordure avec une nuance plus sombre du bleu */
+  }
+  
+  .section-info-salaire .p-3 {
+    padding: 1.5rem; /* Padding plus spacieux pour un meilleur espacement */
+  }
+  
+  .section-info-salaire h4 {
+    font-size: 1.25rem; /* Taille de police pour le titre */
+    font-weight: 600;
+  }
+  
+  .section-info-salaire p {
+    font-size: 1rem; /* Taille de texte agréable à lire */
+    line-height: 1.5; /* Espacement entre les lignes */
+  }
+  
+  /* Effets généraux */
+  .border {
+    border: none; /* Supprimer la bordure par défaut des éléments */
+  }
+  
+  .rounded {
+    border-radius: 12px; /* Coins arrondis */
+  }
+  
+  h4 {
+    margin-bottom: 1rem; /* Espacement sous le titre */
+  }
+  
+  p {
+    color: #f4f4f4; /* Couleur du texte pour les paragraphes */
+  }
+  
+  /* Couleurs supplémentaires */
+  .text-primary {
+    color: #e6f1ff; /* Teinte claire de bleu pour les textes importants */
+  }
+  
+  /* Stylisation des liens dans les sections */
+  a {
+    color: #ffdd57; /* Jaune clair pour les liens */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #ffd700; /* Jaune plus vif au survol */
+    text-decoration: underline;
+  }
+  
+  /* Style général pour le tableau */
+table {
+    width: 100%; /* Largeur du tableau sur toute la largeur de son parent */
+    border-collapse: collapse; /* Fusionner les bordures des cellules pour un rendu plus propre */
+    margin: 20px 0; /* Espacement vertical autour du tableau */
+    font-family: 'Arial', sans-serif; /* Choix d'une police moderne */
+  }
+  
+  /* Style pour chaque ligne du tableau */
+  table tbody tr {
+    background-color: #f9f9f9; /* Fond clair pour les lignes */
+    transition: background-color 0.3s ease; /* Transition douce au survol */
+  }
+  
+  table tbody tr:hover {
+    background-color: #e0f7fa; /* Fond bleu clair au survol */
+  }
+  
+  /* Style pour les cellules du tableau */
+  table td {
+    padding: 12px 15px; /* Espacement intérieur pour les cellules */
+    border: 1px solid #ccc; /* Bordure grise autour des cellules */
+    text-align: left; /* Alignement du texte à gauche */
+    color: #333; /* Couleur du texte */
+    font-size: 1rem; /* Taille du texte */
+    line-height: 1.5; /* Hauteur de ligne pour plus de lisibilité */
+  }
+  
+  /* Style pour les titres dans les cellules */
+  table td strong {
+    font-weight: 600; /* Texte en gras pour les labels */
+    color: #00796b; /* Couleur verte pour le texte des titres */
+  }
+  
+  /* Style pour les valeurs (valeurs numériques) */
+  table td {
+    background-color: #ffffff; /* Fond blanc pour les valeurs */
+    font-weight: 500; /* Moins lourd que le titre, pour une hiérarchie visuelle */
+    color: #000; /* Couleur du texte pour les valeurs */
+  }
+  
+  /* Bordure du tableau */
+  table {
+    border: 2px solid #00796b; /* Bordure verte autour du tableau */
+    border-radius: 10px; /* Coins arrondis pour le tableau */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile autour du tableau */
+  }
+  
+  /* Ajout de l'ombre au survol de chaque ligne */
+  table tbody tr:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  

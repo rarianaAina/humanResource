@@ -11,20 +11,45 @@
 {% block stylesheets %}
   <link href="{{ publicPath }}/dist/css/chunk-vendors.css?v={{ assetsVersion }}" rel="stylesheet"/>
   <link href="{{ publicPath }}/dist/css/app.css?v={{ assetsVersion }}" rel="stylesheet"/>
-{% endblock %}
+    <style>
+  .oxd-sidepanel[data-v-5b6b3cf3] {
+  left: auto;
+  right: 2px; /* Déplace le panneau à droite */
+  width: 16rem; /* Largeur fixe pour le panneau */
+  height: 85%; /* Occupe toute la hauteur */
+  position: fixed;
+  margin-top: 300px;
+  border-bottom-left-radius: 15px; /* Coins arrondis pour le bas gauche */
+  border-top-left-radius: 15px; /* Coins arrondis pour le haut gauche */
+  border-bottom-right-radius: 10px; /* Coins arrondis pour le bas droit */
+  border-top-right-radius: 10px; /* Coins arrondis pour le haut droit */
+  background: linear-gradient(0.25turn, #ffffff, #d3d3d3, #808090); /* Dégradé de bleu */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre élégante */
+  padding: 20px; /* Espacement intérieur */
+  overflow-y: auto; /* Permet le défilement si nécessaire */
+  z-index: 230; /* S'assure que le panneau est au-dessus d'autres éléments */
+  transition: all 0.3s ease; /* Animation pour une transition fluide */
+}
 
+
+    .oxd-layout-container[data-v-130c27f5] {
+      margin-left: 0; /* Annule l'espace réservé à gauche */
+      margin-right: 16rem; /* Ajoute l'espace pour le panneau à droite */
+      width: calc(100% - 16rem); /* Ajuste la largeur du contenu */
+    }
+  </style>
+{% endblock %}
 
 {% block body %}
   <noscript>
     <strong>
-      We're sorry but orangehrm doesn't work properly without JavaScript enabled. Please enable it to continue.
+      We're sorry but humanhr doesn't work properly without JavaScript enabled. Please enable it to continue.
     </strong>
   </noscript>
 
   <div id="app">
     <oxd-layout
-        home-url="https://www.orangehrm.com/"
-        :sidepanel-menu-items="{{ sidePanelMenuItems | json_encode() }}"
+
         :topbar-menu-items="{{ topMenuItems | json_encode() }}"
         :user="{{ user | json_encode() }}"
         brand-logo-src="{{ clientLogoUrl }}"
@@ -36,6 +61,7 @@
         :breadcrumb="{{ breadcrumb | json_encode() }}"
         :date-format="{{ dateFormat | json_encode() }}"
         help-url="{{ helpUrl }}"
+        :sidepanel-menu-items="{{ sidePanelMenuItems | json_encode() }}"
     >
       <{{ componentName }}
       {% for prop in componentProps %}

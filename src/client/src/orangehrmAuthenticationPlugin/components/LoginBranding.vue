@@ -19,7 +19,7 @@
 
 <template>
   <div class="orangehrm-login-branding">
-    <img :src="imgSrc" alt="company-branding" />
+    <img :src="imgSrc" alt="gestion-rh" />
   </div>
 </template>
 

@@ -1,0 +1,126 @@
+/* Réinitialisation de base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Arrière-plan */
+body {
+    background-color: #f3f4f6; /* Gris clair */
+    color: #333; /* Couleur de texte par défaut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Conteneur principal */
+.container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.2s ease-in-out;
+}
+.container:hover {
+    transform: translateY(-5px);
+}
+
+/* Style du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form p {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+form input[type="submit"] {
+    background-color: #3eadba; /* Vert */
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+form input[type="submit"]:hover {
+    background-color: #4bb5b9;
+    transform: translateY(-2px);
+}
+
+/* Message d'erreur */
+.error-message {
+    color: #ff4d4d; /* Rouge vif */
+    font-size: 14px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Texte centré et bouton supplémentaire */
+.text-center {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.text-center button {
+    background-color: transparent;
+    color: #2da8cd;
+    border: 2px solid #3d94b1;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.text-center button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Conteneur du titre pour le centrer */
+.title-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style pour le titre "Connexion" */
+.title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #5c9abb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
