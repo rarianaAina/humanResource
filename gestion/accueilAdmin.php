@@ -47,20 +47,20 @@ echo "Email : " . $_SESSION['email'];
                 <form action="http://localhost:8084/gestionrh/" method="GET">
                     <div class="button-with-icon">
 
-                        <button type="submit"><i class="fa fa-envelope"></i>Gestion Administrative</button>
+                        <button type="submit"><i class="fa fa-book"></i>Gestion Administrative</button>
                     </div>
                 </form>
                 <form action="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" method="GET">
                     <div class="button-with-icon">
 
-                        <button type="submit"><i class="fa fa-envelope"></i>Gestion Paie</button>
+                        <button type="submit"><i class="fa fa-credit-card-alt"></i>Gestion Paie</button>
                     </div>
                 </form>
 
                 <form action="dashboardAdmin.php" method="GET">
                     <div class="button-with-icon">
 
-                        <button type="submit"><i class="fa fa-envelope"></i>Resultats compatibilité</button>
+                        <button type="submit"><i class="fa fa-check"></i>Resultats compatibilité</button>
                     </div>
                 </form>
 

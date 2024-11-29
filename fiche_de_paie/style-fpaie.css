@@ -15,8 +15,8 @@ body {
 /* Couleur pour la section Informations Employé */
 /* Section Informations Employé */
 .section-info-employe {
-    background-color: #6e8eaa; /* Bleu clair */
-    color: #fff; /* Couleur du texte blanche pour contraster avec le fond bleu */
+    background-color: #d4dbe1; /* Bleu clair */
+    color: #120f0f; /* Couleur du texte blanche pour contraster avec le fond bleu */
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile autour de la section */
@@ -48,8 +48,8 @@ body {
   
   /* Section Informations Salaire */
   .section-info-salaire {
-    background-color: #5a6696; /* Bleu plus sombre */
-    color: #fff; /* Couleur du texte blanche */
+    background-color: #b5bbd5; /* Bleu plus sombre */
+    color: #110a0a; /* Couleur du texte blanche */
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile autour de la section */
@@ -93,12 +93,12 @@ body {
   }
   
   p {
-    color: #f4f4f4; /* Couleur du texte pour les paragraphes */
+    color: #120f0f; /* Couleur du texte pour les paragraphes */
   }
   
   /* Couleurs supplémentaires */
   .text-primary {
-    color: #e6f1ff; /* Teinte claire de bleu pour les textes importants */
+    color: #101418; /* Teinte claire de bleu pour les textes importants */
   }
   
   /* Stylisation des liens dans les sections */

@@ -3,6 +3,10 @@
 
 use LDAP\Result;
 
+require_once '../lib/dompdf/autoload.inc.php';
+
+use Dompdf\Dompdf;
+
 $conn = new mysqli("localhost", "rariana", "rariana", "orangehrm");
 
 $conn->set_charset("utf8");
@@ -149,7 +153,7 @@ ORDER BY
         $nombreConge = $row['remaining_days'];
       }
     } else {
-      echo "No leave entitlement found for the employee.";
+      //echo "No leave entitlement found for the employee.";
     }
 
     $nombreCongeMois = 0;
@@ -177,11 +181,11 @@ GROUP BY
     if ($result_conges_mois->num_rows > 0) {
       while ($row = $result_conges_mois->fetch_assoc()) {
         $nombreCongeMois = $row['days_taken'];
-        echo "Employee Number: " . $row['emp_number'] . " - Days Taken in the Month: " . $row['days_taken'] . "<br>";
+        //echo "Employee Number: " . $row['emp_number'] . " - Days Taken in the Month: " . $row['days_taken'] . "<br>";
       }
     } else {
 
-      echo "No leave taken for the selected month.";
+      //echo "No leave taken for the selected month.";
     }
 
     // Calcul des montants des heures supplémentaires avec les majorations
@@ -269,7 +273,7 @@ function calculerCongeTotal($date_embauche)
 }
 
 $congeTotal = calculerCongeTotal($date_embauche);
-echo $congeTotal;
+//echo $congeTotal;
 $mois_precedent = new DateTime('first day of last month');
 $mois_precedent = $mois_precedent->format('F Y');
 
@@ -320,6 +324,7 @@ $nombreConge = $congeTotal - $nombreCongeMois;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fiche de paie</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
   <link rel="stylesheet" href="style-fpaie.css">
   <link
 
@@ -327,10 +332,12 @@ $nombreConge = $congeTotal - $nombreCongeMois;
     rel="stylesheet" />
 </head>
 
-<body>
-  <div>
-    <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php">Accueil</a>
+<div>
+    <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" class="btn btn-secondary mb-4">Accueil</a>
   </div>
+  <div id="content">
+  <body>
+
   <div class="container my-5">
     <!-- Header -->
     <div class="text-center mb-4">
@@ -386,9 +393,9 @@ $nombreConge = $congeTotal - $nombreCongeMois;
 
 
   <!-- Informations Employé -->
-  
+
   <div class="row gy-4">
-    
+
     <!-- Section Informations Employé avec une classe personnalisée -->
     <div class="col-md-6 section-info-employe">
       <div class="p-3 border rounded">
@@ -400,7 +407,7 @@ $nombreConge = $congeTotal - $nombreCongeMois;
         <p><strong>Ancienneté :</strong> <?php echo $anciennete; ?></p>
       </div>
     </div>
-    
+
     <!-- Section Informations Salaire avec une classe personnalisée -->
     <div class="col-md-6 section-info-salaire">
       <div class="p-3 border rounded">
@@ -619,7 +626,11 @@ $nombreConge = $congeTotal - $nombreCongeMois;
         </tr>
       </tbody>
     </table>
-  </div>
+    </body>
+    </div>
+    </div>
+    <button id="exportButton" class="btn btn-success mt-3">Exporter en PDF</button>
+  
 
   <!-- Bootstrap JS -->
   <script
@@ -628,6 +639,27 @@ $nombreConge = $congeTotal - $nombreCongeMois;
     document.getElementById("date").textContent =
       new Date().toLocaleDateString();
   </script>
-</body>
 
 </html>
+<script>
+  document.getElementById('exportButton').addEventListener('click', function() {
+    const element = document.getElementById('content');
+    
+    // Configuration des options pour ajouter des marges
+    html2pdf()
+      .from(element)  // L'élément à convertir en PDF
+      .set({
+        margin: [6, 6, 6, 6],  // Marges : [haut, droite, bas, gauche]
+        filename: 'Fiche de Paie.pdf',  // Nom du fichier PDF
+        html2canvas: {
+          scale: 2  // Augmente la qualité du rendu
+        },
+        jsPDF: {
+          unit: 'mm',  // Unité de mesure (mm, cm, etc.)
+          format: 'a4',  // Format de la page (A4, Letter, etc.)
+          orientation: 'portrait'  // Orientation (portrait ou paysage)
+        }
+      })
+      .save();  // Sauvegarder le fichier
+  });
+</script>
