@@ -95,4 +95,11 @@ $vacancy_name = isset($_GET['vacancy_name']) ? (string)$_GET['vacancy_name'] : n
     </script>
 </body>
 
+<div>
+    <br>
+</div>
+<footer class="footer bg-light text-center py-3">
+    <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+</footer>
+
 </html>

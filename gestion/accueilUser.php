@@ -9,7 +9,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 echo "Bienvenue, utilisateur ID : " . $_SESSION['user_id'] . "<br>";
-echo "Email : " . $_SESSION['email'];
+echo "Email : " . $_SESSION['email'] . "<br>";
+echo "Utilisateur last name: " . $_SESSION['middle_name'] . "<br>";
 ?>
 
 <!DOCTYPE html>
@@ -126,7 +127,12 @@ echo "Email : " . $_SESSION['email'];
             </div>
         </div>
     </div>
-
+    <div>
+      <br>
+    </div>
+    <footer class="footer bg-light text-center py-3">
+        <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 

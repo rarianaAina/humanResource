@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-emp.css">
     <title>Liste des Employés</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+
 <body>
+    <!-- <header class="header bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Gestion PAIE</h1>
+        </div>
+    </header> -->
+
     <div class="container my-5">
         <a href="http://localhost:8084/gestionrh/gestion/accueilAdmin.php" class="btn btn-secondary mb-4">Accueil</a>
 
@@ -16,15 +25,15 @@
         </div>
 
         <!-- Tableau des Employés -->
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-                <thead class="table-light">
+        <div class="table-responsive shadow p-4 bg-white rounded">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-primary">
                     <tr>
-                        <th>ID</th>
+
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>État</th> <!-- Colonne pour l'état de l'employé -->
-                        <th>Actions</th> <!-- Colonne pour les actions -->
+                        <th>État</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,10 +69,10 @@
                             }
 
                             echo '<tr>';
-                            echo '<td>' . htmlspecialchars($row['emp_number']) . '</td>';
+                            // echo '<td>' . htmlspecialchars($row['emp_number']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['emp_lastname']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['emp_firstname']) . '</td>';
-                            echo '<td>' . htmlspecialchars($etat) . '</td>'; // Affichage de l'état
+                            echo '<td><span class="badge ' . ($etat == 'Actif' ? 'bg-success' : ($etat == 'Inactif' ? 'bg-danger' : 'bg-warning')) . '">' . htmlspecialchars($etat) . '</span></td>';
                             echo '<td><a href="index.php?emp_number=' . urlencode($row['emp_number']) . '" class="btn btn-primary btn-sm">Détails</a></td>';
                             echo '</tr>';
                         }
@@ -78,8 +87,13 @@
             </table>
         </div>
     </div>
+    
+    <footer class="footer bg-light text-center py-3">
+        <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>

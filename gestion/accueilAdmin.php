@@ -112,7 +112,12 @@ echo "Email : " . $_SESSION['email'];
             </div>
         </div>
     </div>
-
+    <div>
+      <br>
+    </div>
+    <footer class="footer bg-light text-center py-3">
+        <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 

@@ -1,0 +1,51 @@
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #e1f5fe);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    background-color: #bbddc9;
+    color: white;
+    padding: 15px 0;
+}
+
+/* Boutons */
+.btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Table */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table {
+    background: #fff;
+    border-radius: 8px;
+}
+
+/* Badge d'état */
+.badge {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+/* Footer */
+.footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

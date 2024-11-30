@@ -24,7 +24,7 @@ try {
 $max_required_score = 2; // Exemple de score requis par la société
 
 // Récupérer les scores des candidats dans la table compatibilite
-$query = "SELECT candidat_id, compatibilite, middle_name, last_name FROM compatibilite";
+$query = "SELECT candidat_id, compatibilite, middle_name, last_name, email FROM compatibilite";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 ?>
@@ -35,84 +35,35 @@ $stmt->execute();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style-dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Tableau de compatibilité des candidats</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            padding-top: 50px;
-            font-size: 2em;
-        }
-
-        table {
-            width: 80%;
-            margin: 50px auto;
-            border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
-
-        th,
-        td {
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #007BFF;
-            color: white;
-            font-size: 1.1em;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        td {
-            font-size: 1em;
-            color: #333;
-        }
-
-        .compatibility-high {
-            color: green;
-            font-weight: bold;
-        }
-
-        .compatibility-low {
-            color: red;
-            font-weight: bold;
-        }
-
-        .compatibility-medium {
-            color: orange;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
+    <div class="logout-container">
+        <form action="logout.php" method="POST">
+            <button type="submit" class="logout-button">Se déconnecter</button>
+        </form>
+    </div>
+
+    <div class="retour">
+        <a href="accueilAdmin.php">Retourner à l'accueil</a>
+    </div>
 
     <h1>Tableau de compatibilité des candidats</h1>
-    <button><a href="logout.php">Se déconnecter</a></button>
+
     <table>
         <tr>
-            <!-- <th>ID Candidat</th> -->
+            <th>Email du candidat</th>
             <th>Prénom du candidat</th>
-            <!-- <th>Nom du candidat</th> -->
+            <th>Nom du candidat</th>
             <th>Score de compatibilité</th>
             <th>Pourcentage de compatibilité</th>
+            <th>Actions</th>
         </tr>
 
         <?php
@@ -121,6 +72,7 @@ $stmt->execute();
             $compatibility_score = $row['compatibilite'];
             $candidat_middle_name = $row['middle_name'];
             $candidat_last_name = $row['last_name'];
+            $candidat_email = $row['email'];
 
             // Calculer le pourcentage de compatibilité
             $compatibility_percentage = ($compatibility_score / $max_required_score) * 100;
@@ -136,17 +88,72 @@ $stmt->execute();
 
             // Afficher les résultats dans le tableau
             echo "<tr>";
-            // echo "<td>$candidat_id</td>";
-            //echo "<td>$candidat_middle_name</td>";
+            echo "<td>$candidat_email</td>";
+            echo "<td>$candidat_middle_name</td>";
             echo "<td>$candidat_last_name</td>";
             echo "<td>$compatibility_score</td>";
             echo "<td class='$compatibility_class'>" . round($compatibility_percentage, 2) . "%</td>";
+            echo "<td>Envoyer un email</td>";
             echo "</tr>";
         }
         ?>
 
     </table>
+    <div style="float: right; width: 40%; height: 400px;">
+        <canvas id="compatibilityChart"></canvas>
+    </div>
+    <script>
+        // Récupérer les données des candidats PHP dans un tableau JavaScript
+        const compatibilityData = <?php
+                                    $compatibilityScores = [];
+                                    $compatibilityLabels = [];
+                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                        $compatibilityScores[] = $row['compatibilite'];
+                                        $compatibilityLabels[] = $row['middle_name'] . ' ' . $row['last_name'];
+                                    }
+                                    echo json_encode(['labels' => $compatibilityLabels, 'scores' => $compatibilityScores]);
+                                    ?>;
+
+        // Préparer les données pour le diagramme circulaire
+        const data = {
+            labels: compatibilityData.labels,
+            datasets: [{
+                label: 'Compatibilité des candidats',
+                data: compatibilityData.scores,
+                backgroundColor: ['#4CAF50', '#FF9800', '#f44336'], // Couleurs des segments
+                borderWidth: 1
+            }]
+        };
+
+        // Créer le diagramme circulaire
+        const ctx = document.getElementById('compatibilityChart').getContext('2d');
+        const compatibilityChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' points';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
+<div>
+    <br>
+</div>
+<footer class="footer bg-light text-center py-3">
+    <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+</footer>
 
 </html>

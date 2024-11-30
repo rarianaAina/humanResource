@@ -87,3 +87,11 @@ textarea {
 .btn-back:hover {
     background-color: #e53935;
 }
+/* Footer */
+.footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

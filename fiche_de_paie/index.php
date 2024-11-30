@@ -630,7 +630,12 @@ $nombreConge = $congeTotal - $nombreCongeMois;
     </div>
     </div>
     <button id="exportButton" class="btn btn-success mt-3">Exporter en PDF</button>
-  
+    <div>
+      <br>
+    </div>
+    <footer class="footer bg-light text-center py-3">
+        <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+    </footer>
 
   <!-- Bootstrap JS -->
   <script
