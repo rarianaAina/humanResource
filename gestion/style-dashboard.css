@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    background: linear-gradient(45deg, #f5f1f1, #dbe7e6);
     margin: 0;
     padding: 0;
 }
@@ -28,7 +28,7 @@ td {
 }
 
 th {
-    background-color: #007BFF;
+    background-color: #afdda4;
     color: white;
     font-size: 1.1em;
 }

@@ -19,7 +19,7 @@ echo "Email : " . $_SESSION['email'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateforme de Recrutement</title>
-    <link rel="stylesheet" href="style-accueil.css">
+    <link rel="stylesheet" href="styles/style-accueil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Favicon -->

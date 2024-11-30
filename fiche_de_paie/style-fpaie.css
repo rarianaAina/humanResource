@@ -3,7 +3,8 @@ body {
     /* font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0; */
-    background: linear-gradient(45deg, #c1dae2, #dbe7e6);
+    background: linear-gradient(45deg, #f5f1f1, #dbe7e6);
+    /* background: linear-gradient(45deg, #c1dae2, #dbe7e6); */
     /* display: flex;
     justify-content: center;
     align-items: center;
@@ -171,4 +172,49 @@ table {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+.accueil a {
+  background-color: #808080;
+  /* Rouge */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  /* Supprime le soulignement sur le lien */
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accueil {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.logout-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.logout-button {
+  background-color: #f44336; /* Rouge */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover {
+  background-color: #d32f2f; /* Rouge plus foncé */
 }

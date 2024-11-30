@@ -331,141 +331,146 @@ $nombreConge = $congeTotal - $nombreCongeMois;
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet" />
 </head>
+<div class="logout-container">
+  <form action="../gestion/logout.php" method="POST">
+    <button type="submit" class="logout-button">Se déconnecter</button>
+  </form>
+</div>
+<div class="accueil">
+  <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" class="btn btn-secondary mb-4">Accueil</a>
+</div>
+<div id="content">
 
-<div>
-    <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" class="btn btn-secondary mb-4">Accueil</a>
-  </div>
-  <div id="content">
   <body>
 
-  <div class="container my-5">
-    <!-- Header -->
-    <div class="text-center mb-4">
-      <h1 class="display-4">Fiche de paie</h1>
-      <h2 class="h5">Fiche de paie du mois de :</h2>
-      <form method="POST" action="">
-        <div class="row justify-content-center">
-          <!-- Sélection de l'année -->
-          <div class="col-md-3">
-            <label for="annee" class="form-label">Année</label>
-            <select name="annee" id="annee" class="form-select" aria-label="Année de la fiche de paie">
-              <?php
-              // Générer une liste déroulante pour les 5 dernières années
-              $anneeCourante = date('Y');
-              for ($i = $anneeCourante; $i >= $anneeCourante - 5; $i--) {
-                echo "<option value=\"$i\">$i</option>";
-              }
-              ?>
-            </select>
-          </div>
+    <div class="container my-5">
+      <!-- Header -->
+      <div class="text-center mb-4">
+        <h1 class="display-4">Fiche de paie</h1>
+        <h2 class="h5">Fiche de paie du mois de :</h2>
+        <form method="POST" action="">
+          <div class="row justify-content-center">
+            <!-- Sélection de l'année -->
+            <div class="col-md-3">
+              <label for="annee" class="form-label">Année</label>
+              <select name="annee" id="annee" class="form-select" aria-label="Année de la fiche de paie">
+                <?php
+                // Générer une liste déroulante pour les 5 dernières années
+                $anneeCourante = date('Y');
+                for ($i = $anneeCourante; $i >= $anneeCourante - 5; $i--) {
+                  echo "<option value=\"$i\">$i</option>";
+                }
+                ?>
+              </select>
+            </div>
 
-          <!-- Sélection du mois -->
-          <div class="col-md-3">
-            <label for="mois" class="form-label">Mois</label>
-            <select name="mois" id="mois" class="form-select" aria-label="Mois de la fiche de paie">
-              <?php
-              // Tableau des mois en français
-              $moisEcoules = [
-                '01' => 'Janvier',
-                '02' => 'Février',
-                '03' => 'Mars',
-                '04' => 'Avril',
-                '05' => 'Mai',
-                '06' => 'Juin',
-                '07' => 'Juillet',
-                '08' => 'Août',
-                '09' => 'Septembre',
-                '10' => 'Octobre',
-                '11' => 'Novembre',
-                '12' => 'Décembre'
-              ];
-              foreach ($moisEcoules as $numMois => $nomMois) {
-                echo "<option value=\"$numMois\">$nomMois</option>";
-              }
-              ?>
-            </select>
+            <!-- Sélection du mois -->
+            <div class="col-md-3">
+              <label for="mois" class="form-label">Mois</label>
+              <select name="mois" id="mois" class="form-select" aria-label="Mois de la fiche de paie">
+                <?php
+                // Tableau des mois en français
+                $moisEcoules = [
+                  '01' => 'Janvier',
+                  '02' => 'Février',
+                  '03' => 'Mars',
+                  '04' => 'Avril',
+                  '05' => 'Mai',
+                  '06' => 'Juin',
+                  '07' => 'Juillet',
+                  '08' => 'Août',
+                  '09' => 'Septembre',
+                  '10' => 'Octobre',
+                  '11' => 'Novembre',
+                  '12' => 'Décembre'
+                ];
+                foreach ($moisEcoules as $numMois => $nomMois) {
+                  echo "<option value=\"$numMois\">$nomMois</option>";
+                }
+                ?>
+              </select>
+            </div>
           </div>
+          <button type="submit" class="btn btn-primary mt-3">Afficher</button>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Informations Employé -->
+
+    <div class="row gy-4">
+
+      <!-- Section Informations Employé avec une classe personnalisée -->
+      <div class="col-md-6 section-info-employe">
+        <div class="p-3 border rounded">
+          <h4 class="h6 fw-bold mb-3">Informations Employé</h4>
+          <p><strong>Nom et Prénoms :</strong> <?php echo $nom . ' ' . $prenom; ?></p>
+          <p><strong>Matricule :</strong> <?php echo $matricule; ?></p>
+          <p><strong>Fonction :</strong> <?php echo $fonction ?? 'Non spécifiée'; ?></p>
+          <p><strong>Date d'embauche :</strong> <?php echo $date_embauche; ?></p>
+          <p><strong>Ancienneté :</strong> <?php echo $anciennete; ?></p>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Afficher</button>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- Informations Employé -->
-
-  <div class="row gy-4">
-
-    <!-- Section Informations Employé avec une classe personnalisée -->
-    <div class="col-md-6 section-info-employe">
-      <div class="p-3 border rounded">
-        <h4 class="h6 fw-bold mb-3">Informations Employé</h4>
-        <p><strong>Nom et Prénoms :</strong> <?php echo $nom . ' ' . $prenom; ?></p>
-        <p><strong>Matricule :</strong> <?php echo $matricule; ?></p>
-        <p><strong>Fonction :</strong> <?php echo $fonction ?? 'Non spécifiée'; ?></p>
-        <p><strong>Date d'embauche :</strong> <?php echo $date_embauche; ?></p>
-        <p><strong>Ancienneté :</strong> <?php echo $anciennete; ?></p>
       </div>
-    </div>
 
-    <!-- Section Informations Salaire avec une classe personnalisée -->
-    <div class="col-md-6 section-info-salaire">
-      <div class="p-3 border rounded">
-        <h4 class="h6 fw-bold mb-3">Informations Salaire</h4>
-        <p><strong>Classification :</strong> <?php echo $classification ?? 'Non spécifiée'; ?></p>
-        <p><strong>Salaire de base :</strong> <?php echo number_format($salaire_base, 2, ',', ' ') . ' Ar'; ?></p>
-        <p><strong>Taux journalier :</strong> <?php echo number_format($taux_journalier, 2, ',', ' ') . ' Ar'; ?></p>
-        <p><strong>Taux horaire :</strong> <?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></p>
-        <p><strong>Indice :</strong> </p>
+      <!-- Section Informations Salaire avec une classe personnalisée -->
+      <div class="col-md-6 section-info-salaire">
+        <div class="p-3 border rounded">
+          <h4 class="h6 fw-bold mb-3">Informations Salaire</h4>
+          <p><strong>Classification :</strong> <?php echo $classification ?? 'Non spécifiée'; ?></p>
+          <p><strong>Salaire de base :</strong> <?php echo number_format($salaire_base, 2, ',', ' ') . ' Ar'; ?></p>
+          <p><strong>Taux journalier :</strong> <?php echo number_format($taux_journalier, 2, ',', ' ') . ' Ar'; ?></p>
+          <p><strong>Taux horaire :</strong> <?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></p>
+          <p><strong>Taux journalier de congé :</strong> </p>
+        </div>
       </div>
+
     </div>
 
-  </div>
+
+    <!-- Tableau des Détails -->
+    <div class="mt-5">
+      <h4 class="h5 fw-bold">Détails du Salaire</h4>
+      <table class="table table-striped table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>Désignations</th>
+            <th>Nombre</th>
+            <th>Taux</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Lignes de détails de salaire -->
+          <tr>
+            <th>Heures travaillées: </th>
+            <th><?php echo number_format($total_hours, 2, ',', ' ') . ' heures'; ?></th>
+            <th><?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></th>
+            <th><?php echo number_format($montantTravailles, 2, ',', ' ') . ' Ar'; ?></th>
+          </tr>
+          <tr>
+            <td>Absences déductibles</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Primes de rendement</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Primes d'ancienneté</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Heures supplémentaires majorées de 30%</td>
 
 
-  <!-- Tableau des Détails -->
-  <div class="mt-5">
-    <h4 class="h5 fw-bold">Détails du Salaire</h4>
-    <table class="table table-striped table-bordered">
-      <thead class="table-light">
-        <tr>
-          <th>Désignations</th>
-          <th>Nombre</th>
-          <th>Taux</th>
-          <th>Montant</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Lignes de détails de salaire -->
-        <tr>
-          <th>Heures travaillées: </th>
-          <th><?php echo number_format($total_hours, 2, ',', ' ') . ' heures'; ?></th>
-          <th><?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></th>
-          <th><?php echo number_format($montantTravailles, 2, ',', ' ') . ' Ar'; ?></th>
-        </tr>
-        <tr>
-          <td>Absences déductibles</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Primes de rendement</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Primes d'ancienneté</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Heures supplémentaires majorées de 30%</td>
-
-
-          <!-- // Affichage des résultats
+            <!-- // Affichage des résultats
     echo "Total des heures travaillées : " . round($total_hours, 2) . " heures<br>";
     echo "Montant des heures travaillées : " . round($montant_travaille, 2) . " Ar<br>";
     
@@ -474,197 +479,197 @@ $nombreConge = $congeTotal - $nombreCongeMois;
     echo "Heures travaillées le dimanche : " . round($sunday_hours, 2) . " heures<br>";
     echo "Heures travaillées pendant les jours fériés : " . round($holiday_hours, 2) . " heures<br>";
     echo "Montant total des heures supplémentaires : " . round($montant_total_supp, 2) . " Ar<br>"; -->
-          <td><?php echo round($heures_supp_41_48, 2) . " heures<br>"; ?></td>
-          <td></td>
-          <td><?php echo number_format(round($montant_supp_41_48, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
+            <td><?php echo round($heures_supp_41_48, 2) . " heures<br>"; ?></td>
+            <td></td>
+            <td><?php echo number_format(round($montant_supp_41_48, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
 
-        </tr>
-        <tr>
-          <td>Heures supplémentaires majorées de 40%</td>
-          <td><?php echo round($heures_supp_au_dela_48, 2) . " heures<br>"; ?></td>
-          <td></td>
-          <td><?php echo number_format(round($montant_au_dela_48, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
+          </tr>
+          <tr>
+            <td>Heures supplémentaires majorées de 40%</td>
+            <td><?php echo round($heures_supp_au_dela_48, 2) . " heures<br>"; ?></td>
+            <td></td>
+            <td><?php echo number_format(round($montant_au_dela_48, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
 
-        </tr>
-        <tr>
-          <td>Heures supplémentaires majorées de 50%</td>
-          <td><?php echo round($sunday_hours, 2) . " heures<br>"; ?></td>
-          <td></td>
-          <td><?php echo number_format(round($montant_dimanche, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
+          </tr>
+          <tr>
+            <td>Heures supplémentaires majorées de 50%</td>
+            <td><?php echo round($sunday_hours, 2) . " heures<br>"; ?></td>
+            <td></td>
+            <td><?php echo number_format(round($montant_dimanche, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
 
-        </tr>
-        <tr>
-          <td>Heures supplémentaires majorées de 100%</td>
-          <td><?php echo round($holiday_hours, 2) . " heures<br>"; ?></td>
-          <td></td>
-          <td><?php echo number_format(round($montant_ferie, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
+          </tr>
+          <tr>
+            <td>Heures supplémentaires majorées de 100%</td>
+            <td><?php echo round($holiday_hours, 2) . " heures<br>"; ?></td>
+            <td></td>
+            <td><?php echo number_format(round($montant_ferie, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
 
-        </tr>
-        <tr>
-          <td>Majoration pour heures de nuit</td>
-          <td><?php echo round($night_hours, 2) . " heures<br>"; ?></td>
-          <td></td>
-          <td><?php echo number_format(round($montant_nuit, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
+          </tr>
+          <tr>
+            <td>Majoration pour heures de nuit</td>
+            <td><?php echo round($night_hours, 2) . " heures<br>"; ?></td>
+            <td></td>
+            <td><?php echo number_format(round($montant_nuit, 2), 2, ',', ' ') . " Ar<br>"; ?></td>
 
-        </tr>
-        <tr>
-          <td>Primes diverses</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Rappels sur période antérieure</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Droits de congés</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Droits de préavis</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Droits de licenciement</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td colspan="3" class="text-end"><strong>Salaire brut</strong></td>
-          <td><?php echo number_format($salaire_brut, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-        <tr>
-          <td colspan="3" class="text-end"><strong>Salaire imposable</strong></td>
-          <td><?php echo number_format($montantImposable, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Tableau des Retenues -->
-  <div class="mt-5">
-    <h4 class="h5 fw-bold">Retenues et Net à Payer</h4>
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td colspan="2" class="text-end"></td>
-          <td>Taux</td>
-          <td>Total</td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Retenue CNaPS</td>
-          <td>1%</td>
-          <td><?php echo number_format($retenuIRSA, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Retenue Sanitaire</td>
-          <td>1%</td>
-          <td><?php echo number_format($retenuSanitaire, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Tranche IRSA INF 350 000</td>
-          <td>0%</td>
-          <td><?php echo $montantTravailles <= 350000 ? "0 Ar" : ""; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Tranche IRSA DE 350 001 à 400 000</td>
-          <td>5%</td>
-          <td><?php echo $tranche2 > 0 ? number_format($tranche2, 2, ',', ' ') . ' Ar' : ''; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Tranche IRSA DE 400 001 à 500 000</td>
-          <td>10%</td>
-          <td><?php echo $tranche3 > 0 ? number_format($tranche3, 2, ',', ' ') . ' Ar' : ''; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Tranche IRSA DE 500 001 à 600 000</td>
-          <td>15%</td>
-          <td><?php echo $tranche4 > 0 ? number_format($tranche4, 2, ',', ' ') . ' Ar' : ''; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end">Tranche IRSA SUP 600 000</td>
-          <td>20%</td>
-          <td><?php echo $tranche5 > 0 ? number_format($tranche5, 2, ',', ' ') . ' Ar' : ''; ?></td>
-        </tr>
-        <tr class="table-secondary">
-          <td colspan="2" class="text-end"></td>
-          <td><strong>TOTAL IRSA</strong></td>
-          <td><?php echo number_format($totalIRSA, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-        <tr class="table-secondary">
-          <td colspan="2" class="text-end"></td>
-          <td><strong>TOTAL RETENUES</strong></td>
-          <td><?php echo number_format($totalRetenues, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-end"></td>
-          <td>Autres indemnités</td>
-          <td></td>
-        </tr>
-        <tr class="table-secondary">
-          <td colspan="2" class="text-end"></td>
-          <td><strong>Net à Payer</strong></td>
-          <td><?php echo number_format($netAPayer, 2, ',', ' ') . ' Ar'; ?></td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <tbody>
-        <tr>
-          <td><strong>Solde congé : </strong><?php echo number_format($nombreConge, 2, ',', '') . ' Jours'; ?></td>
-        </tr>
-        <tr>
-          <td><strong>Congé pris pour ce mois: </strong><?php echo number_format($nombreCongeMois, 2, ',', '') . ' Jours'; ?></td>
-        </tr>
-      </tbody>
-    </table>
-    </body>
+          </tr>
+          <tr>
+            <td>Primes diverses</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rappels sur période antérieure</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Droits de congés</td>
+            <td><?php echo number_format($nombreCongeMois, 2, ',', '') . ' Jours'; ?></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Droits de préavis</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Droits de licenciement</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-end"><strong>Salaire brut</strong></td>
+            <td><?php echo number_format($salaire_brut, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-end"><strong>Salaire imposable</strong></td>
+            <td><?php echo number_format($montantImposable, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    </div>
-    <button id="exportButton" class="btn btn-success mt-3">Exporter en PDF</button>
-    <div>
-      <br>
-    </div>
-    <footer class="footer bg-light text-center py-3">
-        <p>© 2024 IT-Corporation. Tous droits réservés.</p>
-    </footer>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.getElementById("date").textContent =
-      new Date().toLocaleDateString();
-  </script>
+    <!-- Tableau des Retenues -->
+    <div class="mt-5">
+      <h4 class="h5 fw-bold">Retenues et Net à Payer</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td colspan="2" class="text-end"></td>
+            <td>Taux</td>
+            <td>Total</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Retenue CNaPS</td>
+            <td>1%</td>
+            <td><?php echo number_format($retenuIRSA, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Retenue Sanitaire</td>
+            <td>1%</td>
+            <td><?php echo number_format($retenuSanitaire, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Tranche IRSA INF 350 000</td>
+            <td>0%</td>
+            <td><?php echo $montantTravailles <= 350000 ? "0 Ar" : ""; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Tranche IRSA DE 350 001 à 400 000</td>
+            <td>5%</td>
+            <td><?php echo $tranche2 > 0 ? number_format($tranche2, 2, ',', ' ') . ' Ar' : ''; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Tranche IRSA DE 400 001 à 500 000</td>
+            <td>10%</td>
+            <td><?php echo $tranche3 > 0 ? number_format($tranche3, 2, ',', ' ') . ' Ar' : ''; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Tranche IRSA DE 500 001 à 600 000</td>
+            <td>15%</td>
+            <td><?php echo $tranche4 > 0 ? number_format($tranche4, 2, ',', ' ') . ' Ar' : ''; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Tranche IRSA SUP 600 000</td>
+            <td>20%</td>
+            <td><?php echo $tranche5 > 0 ? number_format($tranche5, 2, ',', ' ') . ' Ar' : ''; ?></td>
+          </tr>
+          <tr class="table-secondary">
+            <td colspan="2" class="text-end"></td>
+            <td><strong>TOTAL IRSA</strong></td>
+            <td><?php echo number_format($totalIRSA, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+          <tr class="table-secondary">
+            <td colspan="2" class="text-end"></td>
+            <td><strong>TOTAL RETENUES</strong></td>
+            <td><?php echo number_format($totalRetenues, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end"></td>
+            <td>Autres indemnités</td>
+            <td></td>
+          </tr>
+          <tr class="table-secondary">
+            <td colspan="2" class="text-end"></td>
+            <td><strong>Net à Payer</strong></td>
+            <td><?php echo number_format($netAPayer, 2, ',', ' ') . ' Ar'; ?></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Solde congé : </strong><?php echo number_format($nombreConge, 2, ',', '') . ' Jours'; ?></td>
+          </tr>
+          <tr>
+            <td><strong>Congé pris pour ce mois: </strong><?php echo number_format($nombreCongeMois, 2, ',', '') . ' Jours'; ?></td>
+          </tr>
+        </tbody>
+      </table>
+  </body>
+</div>
+</div>
+<button id="exportButton" class="btn btn-success mt-3">Exporter en PDF</button>
+<div>
+  <br>
+</div>
+<footer class="footer bg-light text-center py-3">
+  <p>© 2024 IT-Corporation. Tous droits réservés.</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById("date").textContent =
+    new Date().toLocaleDateString();
+</script>
 
 </html>
 <script>
   document.getElementById('exportButton').addEventListener('click', function() {
     const element = document.getElementById('content');
-    
+
     // Configuration des options pour ajouter des marges
     html2pdf()
-      .from(element)  // L'élément à convertir en PDF
+      .from(element) // L'élément à convertir en PDF
       .set({
-        margin: [6, 6, 6, 6],  // Marges : [haut, droite, bas, gauche]
-        filename: 'Fiche de Paie.pdf',  // Nom du fichier PDF
+        margin: [6, 6, 6, 6], // Marges : [haut, droite, bas, gauche]
+        filename: 'Fiche de Paie.pdf', // Nom du fichier PDF
         html2canvas: {
-          scale: 2  // Augmente la qualité du rendu
+          scale: 2 // Augmente la qualité du rendu
         },
         jsPDF: {
-          unit: 'mm',  // Unité de mesure (mm, cm, etc.)
-          format: 'a4',  // Format de la page (A4, Letter, etc.)
-          orientation: 'portrait'  // Orientation (portrait ou paysage)
+          unit: 'mm', // Unité de mesure (mm, cm, etc.)
+          format: 'a4', // Format de la page (A4, Letter, etc.)
+          orientation: 'portrait' // Orientation (portrait ou paysage)
         }
       })
-      .save();  // Sauvegarder le fichier
+      .save(); // Sauvegarder le fichier
   });
 </script>

@@ -17,8 +17,14 @@
     </header> -->
 
     <div class="container my-5">
-        <a href="http://localhost:8084/gestionrh/gestion/accueilAdmin.php" class="btn btn-secondary mb-4">Accueil</a>
-
+        <div class="logout-container">
+            <form action="../gestion/logout.php" method="POST">
+                <button type="submit" class="logout-button">Se déconnecter</button>
+            </form>
+        </div>
+        <div class="accueil">
+            <a href="http://localhost:8084/gestionrh/gestion/accueilAdmin.php">Accueil</a>
+        </div>
         <!-- Header -->
         <div class="text-center mb-4">
             <h1 class="display-6">Liste des Employés</h1>
@@ -87,7 +93,7 @@
             </table>
         </div>
     </div>
-    
+
     <footer class="footer bg-light text-center py-3">
         <p>© 2024 IT-Corporation. Tous droits réservés.</p>
     </footer>

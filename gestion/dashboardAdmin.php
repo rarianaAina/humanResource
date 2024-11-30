@@ -1,11 +1,11 @@
 <?php
 session_start();
 
+require_once 'vendor/autoload.php';
+
 // Vérifiez si l'utilisateur est un administrateur
 // if (!isset($_SESSION['user_id'])) {
 //     die("Accès non autorisé. Vous devez être un administrateur.");
-// }
-
 // Paramètres de connexion à la base de données
 $host = 'localhost';
 $dbname = 'orangehrm'; // Remplacez par le nom de votre base de données
@@ -27,6 +27,41 @@ $max_required_score = 2; // Exemple de score requis par la société
 $query = "SELECT candidat_id, compatibilite, middle_name, last_name, email FROM compatibilite";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
+
+// Envoi de l'email si le formulaire est soumis
+if (isset($_POST['send_email'])) {
+    $email = $_POST['email'];
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+
+    // Paramètres d'envoi d'email via SwiftMailer
+    $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+        ->setUsername('rarianamiadana@gmail.com')
+        ->setPassword('mgxy pljh fskt zlbk')
+        ->setStreamOptions([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
+
+    // Création du mailer
+    $mailer = new Swift_Mailer($transport);
+
+    // Création du message
+    $message = (new Swift_Message('Bienvenue'))
+        ->setFrom(['rarianamiadana@gmail.com' => 'Informations de connexion'])
+        ->setTo([$email => $nom]) // Envoyer au candidat
+        ->setBody("Bonjour $prenom $nom,\n\nVotre test de compatibilité avec la société a été une réussite, nous vous invitons donc à postuler sur notre plateforme pour un poste qui vous convient le mieux pour que nous puissions traiter le plus vite possible votre dossier\n\nMerci.");
+
+    // Envoi du message
+    if ($mailer->send($message)) {
+        echo 'L\'email contenant le mot de passe a été envoyé avec succès.';
+    } else {
+        echo 'Échec de l\'envoi de l\'email.';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +86,7 @@ $stmt->execute();
     </div>
 
     <div class="retour">
-        <a href="accueilAdmin.php">Retourner à l'accueil</a>
+        <a href="accueilAdmin.php">Accueil</a>
     </div>
 
     <h1>Tableau de compatibilité des candidats</h1>
@@ -61,7 +96,7 @@ $stmt->execute();
             <th>Email du candidat</th>
             <th>Prénom du candidat</th>
             <th>Nom du candidat</th>
-            <th>Score de compatibilité</th>
+            <!-- <th>Score de compatibilité</th> -->
             <th>Pourcentage de compatibilité</th>
             <th>Actions</th>
         </tr>
@@ -91,9 +126,16 @@ $stmt->execute();
             echo "<td>$candidat_email</td>";
             echo "<td>$candidat_middle_name</td>";
             echo "<td>$candidat_last_name</td>";
-            echo "<td>$compatibility_score</td>";
+            //echo "<td>$compatibility_score</td>";
             echo "<td class='$compatibility_class'>" . round($compatibility_percentage, 2) . "%</td>";
-            echo "<td>Envoyer un email</td>";
+            echo "<td>
+                    <form method='POST'>
+                        <input type='hidden' name='email' value='$candidat_email'>
+                        <input type='hidden' name='prenom' value='$candidat_middle_name'>
+                        <input type='hidden' name='nom' value='$candidat_last_name'>
+                        <button type='submit' name='send_email'>Envoyer un email</button>
+                    </form>
+                  </td>";
             echo "</tr>";
         }
         ?>
@@ -102,51 +144,6 @@ $stmt->execute();
     <div style="float: right; width: 40%; height: 400px;">
         <canvas id="compatibilityChart"></canvas>
     </div>
-    <script>
-        // Récupérer les données des candidats PHP dans un tableau JavaScript
-        const compatibilityData = <?php
-                                    $compatibilityScores = [];
-                                    $compatibilityLabels = [];
-                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        $compatibilityScores[] = $row['compatibilite'];
-                                        $compatibilityLabels[] = $row['middle_name'] . ' ' . $row['last_name'];
-                                    }
-                                    echo json_encode(['labels' => $compatibilityLabels, 'scores' => $compatibilityScores]);
-                                    ?>;
-
-        // Préparer les données pour le diagramme circulaire
-        const data = {
-            labels: compatibilityData.labels,
-            datasets: [{
-                label: 'Compatibilité des candidats',
-                data: compatibilityData.scores,
-                backgroundColor: ['#4CAF50', '#FF9800', '#f44336'], // Couleurs des segments
-                borderWidth: 1
-            }]
-        };
-
-        // Créer le diagramme circulaire
-        const ctx = document.getElementById('compatibilityChart').getContext('2d');
-        const compatibilityChart = new Chart(ctx, {
-            type: 'pie',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' points';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 
 </body>
 <div>
