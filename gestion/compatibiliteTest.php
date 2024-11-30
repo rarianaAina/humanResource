@@ -149,6 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Test Psycho-Technique et Culturel Dynamique</title>
     <style>
         body {
@@ -198,25 +199,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="retour">
-            <a href="accueil.php" class="btn btn-back">Retourner à l'accueil</a>
+    <div class="container" style="max-width: 900px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+        <div class="retour" style="margin-bottom: 20px;">
+            <a href="accueil.php" class="btn btn-secondary mb-4" style="text-decoration: none; padding: 10px 20px; background-color: #6c757d; color: white; border-radius: 5px;">Retourner à l'accueil</a>
         </div>
-        <h1>Test Psycho-Technique et Culturel</h1>
-        <form method="POST">
+        <h1 style="text-align: center; color: #007bff;">Test Psycho-Technique et Culturel</h1>
+        <form method="POST" style="margin-top: 30px;">
             <?php
             foreach ($questions as $index => $question) {
-                echo "<div class='question'>
-                        <p>" . $question . "</p>
-                        <textarea name='answer" . ($index + 1) . "' rows='3' style='width: 100%;'></textarea>
+                echo "<div class='question' style='margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;'>
+                        <p style='font-size: 18px; font-weight: bold;'>" . $question . "</p>
+                        <textarea name='answer" . ($index + 1) . "' rows='3' style='width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;'></textarea>
                       </div>";
             }
             ?>
-            <button type="submit" class="submit-btn">Soumettre</button>
+            <button type="submit" class="submit-btn" style="display: block; width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; font-size: 18px; border-radius: 5px; cursor: pointer;">Soumettre</button>
         </form>
     </div>
 </body>
+
 
 </html>

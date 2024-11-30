@@ -50,7 +50,7 @@ if ($result) {
         
 
         // Si admin est coché, rediriger vers la page admin
-        $redirectPage = $is_admin ? 'accueilAdmin.php' : 'accueil.php';
+        $redirectPage = $is_admin ? 'accueilAdmin.php' : 'accueilUser.php';
 
         // Formulaire POST caché pour envoyer l'ID de l'utilisateur
         echo "<form id='redirectForm' action='$redirectPage' method='POST'>";
@@ -61,7 +61,7 @@ if ($result) {
         exit();
     } else {
         // Si échec, rediriger vers la page de connexion avec un message d'erreur
-        header("Location: index.php?error=1");
+        header("Location: index.php?errorr=1");
         exit();
     }
 } else {

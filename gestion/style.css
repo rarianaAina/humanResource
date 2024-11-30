@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 body {
+    background: linear-gradient(45deg, #d0d9d3, #a4d4cf);
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -16,26 +17,101 @@ body {
     background-color: #f3f4f6; /* Gris clair */
     color: #333; /* Couleur de texte par défaut */
     display: flex;
+    flex-direction: column; /* Changer en flex-direction column pour aligner le logo en haut */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    text-align: center;
+}
+
+/* Conteneur du logo */
+.logo-container {
+    width: 200%;
+    padding: 20px 0;
+    
+}
+
+.logo {
+    width: 200px; /* Ajuster la taille du logo selon besoin */
+    height: auto;
+    border-radius: 20px;
+}
+
+/* Conteneur parent pour les trois containers */
+/* Conteneur parent pour les deux containers */
+.container-wrapper {
+    display: flex;
+    justify-content: space-between;  /* Pour espacer les conteneurs */
+    width: 100%;  /* Prend toute la largeur de la page */
+    max-width: 100%;  /* Limite à 100% pour éviter les débordements */
+    margin: 0 auto;  /* Centrer le conteneur */
+    padding: 0 90px;  /* Optionnel, pour ajouter un peu de marge autour des containers */
 }
 
 /* Conteneur principal */
 .container {
-    background-color: #fff;
+    background-color: #78b49d;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    width: 30%; /* Chaque conteneur occupe 30% de l'espace */
     transition: transform 0.2s ease-in-out;
 }
-.container:hover {
+
+/* Troisième container */
+/* Troisième container */
+.container3 {
+    background-color: #aacda3;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Chaque conteneur occupe 30% de l'espace */
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Limiter la largeur du texte dans container3 */
+.container3 p {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+    background-color: #f4f4f4; /* Fond légèrement gris */
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%; /* Largeur de 80% du container */
+    max-width: 400px; /* Largeur maximale du bloc */
+    text-align: center; /* Centrer le texte à l'intérieur du bloc */
+}
+
+
+.container2 p,
+.container p {
+    color: #2e2d2d;
+}
+
+/* Style du survol des containers */
+.container:hover,
+.container2:hover,
+.container3:hover {
     transform: translateY(-5px);
 }
 
+/* Conteneur de connexion supplémentaire */
+.container2 {
+    background-color: #eaf5e2;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Chaque conteneur occupe 30% de l'espace */
+    transition: transform 0.2s ease-in-out;
+}
+.container {
+    margin-right: 0%;
+}
 /* Style du formulaire */
 form {
     display: flex;
@@ -116,11 +192,9 @@ form input[type="submit"]:hover {
 
 /* Style pour le titre "Connexion" */
 .title {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
-    color: #5c9abb;
+    color: #164661;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
-

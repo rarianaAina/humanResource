@@ -129,7 +129,7 @@ $result = $conn->query($sql);
 
 <body>
     <div class="retour">
-        <a href="accueil.php" class="btn btn-back">Retourner à l'accueil</a>
+        <a href="accueilUser.php" class="btn btn-back">Retourner à l'accueil</a>
     </div>
 
     <div class="container">

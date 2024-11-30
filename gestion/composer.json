@@ -1,0 +1,17 @@
+{
+    "name": "user/gestion",
+    "autoload": {
+        "psr-4": {
+            "User\\Gestion\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Web dev",
+            "email": "141223950+rarianaAina@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.3"
+    }
+}
