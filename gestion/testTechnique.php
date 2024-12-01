@@ -321,7 +321,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="retour">
-        <a href="accueil.php" class="btn btn-secondary mb-4">Retourner à l'accueil</a>
+        <a href="accueilUser.php" class="btn btn-secondary mb-4">Retourner à l'accueil</a>
     </div>
     <div class="container">
     <h1>Test Technique PHP</h1>

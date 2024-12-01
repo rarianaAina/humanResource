@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(45deg, #d0d9d3, #a4d4cf);
+    background: linear-gradient(90deg, #d0d9d3, #a4d4cf);
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@ body {
 
 /* Arrière-plan */
 body {
-    background-color: #f3f4f6; /* Gris clair */
+    
     color: #333; /* Couleur de texte par défaut */
     display: flex;
     flex-direction: column; /* Changer en flex-direction column pour aligner le logo en haut */

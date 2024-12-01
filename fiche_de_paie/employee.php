@@ -44,6 +44,8 @@
                 </thead>
                 <tbody>
                     <?php
+                    session_start(); // Démarrer la session
+
                     // Connexion à la base de données
                     $conn = new mysqli("localhost", "rariana", "rariana", "orangehrm");
 
@@ -54,14 +56,17 @@
 
                     // Requête SQL pour récupérer les employés avec leur état
                     $sql = "
-                        SELECT e.emp_number, e.emp_lastname, e.emp_firstname, t.termination_date
-                        FROM hs_hr_employee e
-                        LEFT JOIN ohrm_emp_termination t ON e.emp_number = t.emp_number
-                    ";
+    SELECT e.emp_number, e.emp_lastname, e.emp_firstname, t.termination_date
+    FROM hs_hr_employee e
+    LEFT JOIN ohrm_emp_termination t ON e.emp_number = t.emp_number
+";
 
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
+                        $_SESSION['employe_etats'] = []; // Initialisation de la session pour stocker les états des employés
+                        $_SESSION['employe_terminations'] = [];
+                        
                         while ($row = $result->fetch_assoc()) {
                             $etat = 'Actif'; // État par défaut
 
@@ -74,8 +79,11 @@
                                 }
                             }
 
+                            // Enregistrer l'état de l'employé dans la session
+                            $_SESSION['employe_etats'][$row['emp_number']] = $etat;
+                            $_SESSION['employe_terminations'][$row['emp_number']] = $row['termination_date'];
+                            
                             echo '<tr>';
-                            // echo '<td>' . htmlspecialchars($row['emp_number']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['emp_lastname']) . '</td>';
                             echo '<td>' . htmlspecialchars($row['emp_firstname']) . '</td>';
                             echo '<td><span class="badge ' . ($etat == 'Actif' ? 'bg-success' : ($etat == 'Inactif' ? 'bg-danger' : 'bg-warning')) . '">' . htmlspecialchars($etat) . '</span></td>';

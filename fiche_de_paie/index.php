@@ -1,4 +1,34 @@
 <?php
+
+session_start(); // Démarrer la session pour accéder aux variables de session
+
+if (isset($_GET['emp_number'])) {
+  $emp_number = $_GET['emp_number'];
+
+  // Vérifier si l'état de cet employé est stocké dans la session
+  if (isset($_SESSION['employe_etats'][$emp_number])) {
+    $etat = $_SESSION['employe_etats'][$emp_number];
+    //echo "<p>État de l'employé n°{$emp_number} : <strong>{$etat}</strong></p>";
+  } else {
+    echo "<p>Aucun état trouvé pour l'employé n°{$emp_number}.</p>";
+  }
+
+  // Vérifier si la date de fin de contrat est stockée dans la session
+  if (isset($_SESSION['employe_terminations'][$emp_number])) {
+    $termination_date = $_SESSION['employe_terminations'][$emp_number];
+    if ($termination_date !== null) {
+      //echo "<p>Date de fin de contrat : <strong>{$termination_date}</strong></p>";
+    } else {
+      //echo "<p>Pas de date de fin de contrat disponible.</p>";
+    }
+  } else {
+    //echo "<p>Aucune date de fin de contrat trouvée pour l'employé n°{$emp_number}.</p>";
+  }
+} else {
+  echo "<p>Aucun employé spécifié.</p>";
+}
+
+
 // Connexion à la base de données
 
 use LDAP\Result;
@@ -23,13 +53,15 @@ $mois = $_POST['mois'] ?? date('m');   // Par défaut, le mois en cours
 if ($emp_number) {
   // Requête pour récupérer les informations de l'employé, y compris le job_title_code et la classification
   $sql = "
-    SELECT e.emp_number, e.emp_lastname, e.emp_firstname, e.joined_date, e.job_title_code,
-           j.job_title, c.name AS classification, s.ebsal_basic_salary AS salaire_base
-    FROM hs_hr_employee e
-    LEFT JOIN ohrm_job_title j ON e.job_title_code = j.id
-    LEFT JOIN ohrm_job_category c ON e.eeo_cat_code = c.id
-    LEFT JOIN hs_hr_emp_basicsalary s ON e.emp_number = s.emp_number
-    WHERE e.emp_number = ?";
+  SELECT e.emp_number, e.emp_lastname, e.emp_firstname, e.joined_date, e.job_title_code,
+         j.job_title, c.name AS classification, s.ebsal_basic_salary AS salaire_base, es.name AS emp_status
+  FROM hs_hr_employee e
+  LEFT JOIN ohrm_job_title j ON e.job_title_code = j.id
+  LEFT JOIN ohrm_job_category c ON e.eeo_cat_code = c.id
+  LEFT JOIN hs_hr_emp_basicsalary s ON e.emp_number = s.emp_number
+  LEFT JOIN ohrm_employment_status es ON e.emp_status = es.id
+  WHERE e.emp_number = ?";
+
 
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $emp_number);
@@ -47,6 +79,7 @@ if ($emp_number) {
     $classification = $row['classification']; // Classification
     $salaire_base = $row['salaire_base'] ?? 0;
     $taux_journalier = $salaire_base / 30;
+    $type_contrat = $row['emp_status'];
     $taux_horaire = $salaire_base / 173;
 
     $anciennete = calculerAnciennete($date_embauche);
@@ -264,6 +297,29 @@ function calculerMoisAnciennete($date_embauche)
   return $totalMois;  // Retourne un nombre (total de mois)
 }
 
+function calculJourPreavis($date_embauche)
+{
+  $jours_preavis = 0;
+  $ancienneteMois = calculerMoisAnciennete($date_embauche);
+  if ($ancienneteMois < 12) {
+    $jours_preavis = 15;  // Moins de 1 an (moins de 12 mois) : 15 jours
+  } elseif ($ancienneteMois >= 12 && $ancienneteMois < 60) {
+    $jours_preavis = 30;  // Entre 1 an et 5 ans (12 à 59 mois) : 30 jours
+  } else {
+    $jours_preavis = 60;  // Plus de 5 ans (60 mois et plus) : 60 jours
+  }
+  return $jours_preavis;
+}
+
+if ($etat === 'En préavis') {
+  $jours_preavis = calculJourPreavis($date_embauche);
+  $taux_journalier_preavis = $salaire_base / 22;
+  $montant_preavis = $taux_journalier_preavis * $jours_preavis;
+} else {
+  $jours_preavis = 0;  // Si l'état n'est pas "En préavis" ou si la date d'embauche est vide
+  $montant_preavis = 0;
+}
+
 
 function calculerCongeTotal($date_embauche)
 {
@@ -310,11 +366,15 @@ if ($montantTravailles > 350000) {
 
 
 // Total IRSA
+
+
+
+$nombreConge = $congeTotal - $nombreCongeMois;
+$montantCongePaye = $nombreCongeMois * $taux_horaire;
+$salaire_brut = $montantTravailles + $montant_total_supp + $montantCongePaye + $montant_preavis;
+$montantImposable = $salaire_brut - $totalRetenues;
 $totalIRSA = $tranche2 + $tranche3 + $tranche4 + $tranche5;
 $netAPayer = $montantTravailles - ($totalIRSA + $totalRetenues);
-$salaire_brut = $montantTravailles + $montant_total_supp;
-$montantImposable = $salaire_brut - $totalRetenues;
-$nombreConge = $congeTotal - $nombreCongeMois;
 ?>
 
 <!DOCTYPE html>
@@ -337,7 +397,7 @@ $nombreConge = $congeTotal - $nombreCongeMois;
   </form>
 </div>
 <div class="accueil">
-  <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" class="btn btn-secondary mb-4">Accueil</a>
+  <a href="http://localhost:8084/gestionrh/fiche_de_paie/employee.php" class="btn btn-secondary mb-4">Retour</a>
 </div>
 <div id="content">
 
@@ -357,7 +417,7 @@ $nombreConge = $congeTotal - $nombreCongeMois;
                 <?php
                 // Générer une liste déroulante pour les 5 dernières années
                 $anneeCourante = date('Y');
-                for ($i = $anneeCourante; $i >= $anneeCourante - 5; $i--) {
+                for ($i = $anneeCourante; $i >= $anneeCourante - 2; $i--) {
                   echo "<option value=\"$i\">$i</option>";
                 }
                 ?>
@@ -409,6 +469,7 @@ $nombreConge = $congeTotal - $nombreCongeMois;
           <p><strong>Matricule :</strong> <?php echo $matricule; ?></p>
           <p><strong>Fonction :</strong> <?php echo $fonction ?? 'Non spécifiée'; ?></p>
           <p><strong>Date d'embauche :</strong> <?php echo $date_embauche; ?></p>
+          <p><strong>Etat : </strong><?php echo $etat; ?></p>
           <p><strong>Ancienneté :</strong> <?php echo $anciennete; ?></p>
         </div>
       </div>
@@ -418,10 +479,11 @@ $nombreConge = $congeTotal - $nombreCongeMois;
         <div class="p-3 border rounded">
           <h4 class="h6 fw-bold mb-3">Informations Salaire</h4>
           <p><strong>Classification :</strong> <?php echo $classification ?? 'Non spécifiée'; ?></p>
+          <p><strong>Type de contrat :</strong> <?php echo $type_contrat ?? 'Non spécifiée'; ?></p>
           <p><strong>Salaire de base :</strong> <?php echo number_format($salaire_base, 2, ',', ' ') . ' Ar'; ?></p>
           <p><strong>Taux journalier :</strong> <?php echo number_format($taux_journalier, 2, ',', ' ') . ' Ar'; ?></p>
           <p><strong>Taux horaire :</strong> <?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></p>
-          <p><strong>Taux journalier de congé :</strong> </p>
+          <p><strong>Taux journalier de congé :</strong> <?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></p>
         </div>
       </div>
 
@@ -514,33 +576,33 @@ $nombreConge = $congeTotal - $nombreCongeMois;
           </tr>
           <tr>
             <td>Primes diverses</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>0,00</td>
+            <td>0,00 Ar</td>
+            <td>0,00 Ar</td>
           </tr>
           <tr>
             <td>Rappels sur période antérieure</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>0,00</td>
+            <td>0,00 Ar</td>
+            <td>0,00 Ar</td>
           </tr>
           <tr>
             <td>Droits de congés</td>
             <td><?php echo number_format($nombreCongeMois, 2, ',', '') . ' Jours'; ?></td>
-            <td></td>
-            <td></td>
+            <td><?php echo number_format($taux_horaire, 2, ',', ' ') . ' Ar'; ?></td>
+            <td><?php echo number_format($montantCongePaye, 2, ',', ' ') . ' Ar'; ?></td>
           </tr>
           <tr>
             <td>Droits de préavis</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><?php echo ($etat === 'En préavis') ? $jours_preavis . ' jours' : 'Non applicable'; ?></td>
+            <td><?php echo ($etat === 'En préavis') ? number_format($salaire_journalier, 2, ',', ' ') . ' Ar' : '0 Ar'; ?></td>
+            <td><?php echo ($etat === 'En préavis') ? number_format($montant_preavis, 2, ',', ' ') . ' Ar' : '0 Ar'; ?></td>
           </tr>
           <tr>
             <td>Droits de licenciement</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><?php echo ($etat === 'En préavis') ? $jours_preavis . ' jours' : 'Non applicable'; ?></td>
+            <td><?php echo ($etat === 'En préavis') ? number_format($salaire_journalier, 2, ',', ' ') . ' Ar' : '0 Ar'; ?></td>
+            <td><?php echo ($etat === 'En préavis') ? number_format($montant_preavis, 2, ',', ' ') . ' Ar' : '0 Ar'; ?></td>
           </tr>
           <tr>
             <td colspan="3" class="text-end"><strong>Salaire brut</strong></td>
