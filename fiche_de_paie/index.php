@@ -297,6 +297,22 @@ function calculerMoisAnciennete($date_embauche)
   return $totalMois;  // Retourne un nombre (total de mois)
 }
 
+$moisRehetra = calculerMoisAnciennete($date_embauche);
+function calculPrimeAnciennete($date_embauche)
+{
+  $embaucheMois = calculerMoisAnciennete($date_embauche);
+  if ($embaucheMois >= 12) {
+    $prime_anciennete = 100000;
+  } else if ($embaucheMois >= 6) {
+    $prime_anciennete = 50000;
+  } else {
+    $prime_anciennete = 0;
+  }
+  return $prime_anciennete;
+}
+
+$prime_anciennete = calculPrimeAnciennete($date_embauche);
+
 function calculJourPreavis($date_embauche)
 {
   $jours_preavis = 0;
@@ -524,9 +540,9 @@ $netAPayer = $montantTravailles - ($totalIRSA + $totalRetenues);
           </tr>
           <tr>
             <td>Primes d'ancienneté</td>
+            <td><?php echo number_format($moisRehetra) . ' Mois'; ?></td>
             <td></td>
-            <td></td>
-            <td></td>
+            <td><?php echo number_format($prime_anciennete, 2, ',', '') . ' Ar'; ?></td>
           </tr>
           <tr>
             <td>Heures supplémentaires majorées de 30%</td>

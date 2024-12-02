@@ -91,7 +91,7 @@ textarea {
 .footer {
     background-color: #f8f9fa;
     color: #6c757d;
-    position: fixed;
+    position: flex;
     width: 100%;
     bottom: 0;
 }

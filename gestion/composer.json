@@ -12,6 +12,7 @@
         }
     ],
     "require": {
-        "swiftmailer/swiftmailer": "^6.3"
+        "swiftmailer/swiftmailer": "^6.3",
+        "smalot/pdfparser": "^2.11"
     }
 }

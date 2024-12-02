@@ -60,14 +60,6 @@ echo "Utilisateur last name: " . $_SESSION['middle_name'] . "<br>";
                 </form>
 
 
-               
-                <form action="http://localhost:3000" method="GET">
-                    <div class="button-with-icon">
-                        
-                        <button type="submit" onmouseover="showInfo('infoTransformation')" onmouseout="hideInfo()">
-                            <i class="fas fa-file-upload"></i> Transformer un CV</button>
-                    </div>
-                </form>
 
                 <!-- Formulaire pour postuler -->
                 <form action="offres.php" method="GET">

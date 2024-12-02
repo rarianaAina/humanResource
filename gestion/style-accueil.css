@@ -148,8 +148,10 @@ button i {
 /* Footer */
 .footer {
     background-color: #f8f9fa;
+    text-align: center;
     color: #6c757d;
     position: fixed;
     width: 100%;
     bottom: 0;
+    
 }

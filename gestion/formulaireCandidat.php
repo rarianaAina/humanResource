@@ -56,6 +56,9 @@ $vacancy_name = isset($_GET['vacancy_name']) ? (string)$_GET['vacancy_name'] : n
                 <input type="file" id="cv" name="cv" accept=".pdf" required>
             </div>
 
+            <div class="form-group">
+                <button type="button" id="btn-traiter">Traiter</button>
+            </div>
             <!-- Mots-clés -->
             <div class="form-group">
                 <label for="mots_cles">Mots-clés</label>
@@ -93,6 +96,56 @@ $vacancy_name = isset($_GET['vacancy_name']) ? (string)$_GET['vacancy_name'] : n
             console.log("Aucun ID de vacance trouvé dans l'URL.");
         }
     </script>
+    <script>
+        document.getElementById('btn-traiter').addEventListener('click', function() {
+            // Récupérer le fichier CV
+            var fileInput = document.getElementById('cv');
+            var file = fileInput.files[0];
+
+            if (!file) {
+                alert('Veuillez sélectionner un fichier CV.');
+                return;
+            }
+
+            // Créer un FormData pour envoyer le fichier
+            var formData = new FormData();
+            formData.append('cv', file);
+
+            // Envoi du fichier via AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'pdftotext.php', true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+
+                    // Chercher les mots-clés dans la réponse
+                    var keywords = '';
+                    var regex = /<h3>([^<]+)<\/h3>.*?<ul>(.*?)<\/ul>/g;
+                    var match;
+
+                    while ((match = regex.exec(response)) !== null) {
+                        var category = match[1];
+                        var words = match[2].replace(/<li>/g, '').replace(/<\/li>/g, '').replace(/<\/ul>/g, '').replace(/<\/h3>/g, '').trim();
+                        keywords += words + ''; // Utiliser un point-virgule pour séparer les mots-clés
+                    }
+
+                    // Remplir le champ mots_cles
+                    if (keywords) {
+                        document.getElementById('mots_cles').value = keywords.slice(0, -2); // Supprimer le dernier point-virgule
+                    } else {
+                        alert('Aucun mot-clé trouvé dans le CV.');
+                    }
+                } else {
+                    alert('Erreur lors du traitement du fichier.');
+                }
+            };
+
+            xhr.send(formData);
+        });
+    </script>
+
+
 </body>
 
 <div>

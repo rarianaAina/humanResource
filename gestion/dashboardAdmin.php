@@ -50,14 +50,14 @@ if (isset($_POST['send_email'])) {
     $mailer = new Swift_Mailer($transport);
 
     // Création du message
-    $message = (new Swift_Message('Bienvenue'))
+    $message = (new Swift_Message('IT-Corporation'))
         ->setFrom(['rarianamiadana@gmail.com' => 'Informations de connexion'])
         ->setTo([$email => $nom]) // Envoyer au candidat
         ->setBody("Bonjour $prenom $nom,\n\nVotre test de compatibilité avec la société a été une réussite, nous vous invitons donc à postuler sur notre plateforme pour un poste qui vous convient le mieux pour que nous puissions traiter le plus vite possible votre dossier\n\nMerci.");
 
     // Envoi du message
     if ($mailer->send($message)) {
-        echo 'L\'email contenant le mot de passe a été envoyé avec succès.';
+        echo 'L\'email a été envoyé avec succés.';
     } else {
         echo 'Échec de l\'envoi de l\'email.';
     }
