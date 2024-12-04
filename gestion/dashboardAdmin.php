@@ -51,15 +51,15 @@ if (isset($_POST['send_email'])) {
 
     // Création du message
     $message = (new Swift_Message('IT-Corporation'))
-        ->setFrom(['rarianamiadana@gmail.com' => 'Informations de connexion'])
+        ->setFrom(['rarianamiadana@gmail.com' => 'Résultat test de compatibilité'])
         ->setTo([$email => $nom]) // Envoyer au candidat
         ->setBody("Bonjour $prenom $nom,\n\nVotre test de compatibilité avec la société a été une réussite, nous vous invitons donc à postuler sur notre plateforme pour un poste qui vous convient le mieux pour que nous puissions traiter le plus vite possible votre dossier\n\nMerci.");
 
     // Envoi du message
     if ($mailer->send($message)) {
-        echo 'L\'email a été envoyé avec succés.';
+        echo '<script>alert("L\'email a été envoyé avec succès.");</script>';
     } else {
-        echo 'Échec de l\'envoi de l\'email.';
+        echo '<script>alert("Échec de l\'envoi de l\'email.");</script>';
     }
 }
 ?>

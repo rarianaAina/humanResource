@@ -345,6 +345,9 @@ function calculerCongeTotal($date_embauche)
 }
 
 $congeTotal = calculerCongeTotal($date_embauche);
+if($etat = 'inactif') {
+  $congeTotal = 0;
+}
 //echo $congeTotal;
 $mois_precedent = new DateTime('first day of last month');
 $mois_precedent = $mois_precedent->format('F Y');

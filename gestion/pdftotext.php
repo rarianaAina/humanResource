@@ -69,9 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['cv'])) {
         // Extraire les mots-clés
         $keywords = extractKeywords($text);
 
-        // // Afficher le texte brut
-        // echo "<h2>Texte extrait :</h2>";
-        // echo "<pre>$text</pre>";
+        // Afficher le texte brut
+        echo "<h2>Texte extrait :</h2>";
+        echo "<pre>$text</pre>";
 
         // Afficher les mots-clés
         echo "<h2>Résultats</h2>";
